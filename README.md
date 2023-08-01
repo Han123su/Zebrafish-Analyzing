@@ -2,7 +2,7 @@
 
 <div align="center">
 <p>
-<img src="MOT16_eval/zebrafish2.jpg" width="400"/> <img src="MOT16_eval/zebrafish1.png" width="400"/> 
+<img src="1-feature.png" width="700"/> 
 </p>
 </div>
 

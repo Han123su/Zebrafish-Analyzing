@@ -1,9 +1,11 @@
 clc;
 close all;
 clear;
-addpath('D:\Jian\Zebrafish-tracking-analysis-behavior\Zebrafish-tracking-analysis-behavior\functions')
+% addpath('D:\Jian\Zebrafish-Analysis-behavior\Analysis-behavior-code\functions')
+addpath('C:\Users\lab508\Desktop\Analysis_behavior\functions') 
 %% 讀取.txt資料
-data = importdata('IMG_2575_3_1.txt');
+data = importdata('IMG_5190_pomgnt1WT_1_15s.txt');
+% data = importdata('.\data\20240703_pomgnt1_heterogeneous\IMG_5388~video\labels\IMG_5388~video_1.txt');
 % head_x = data(:,2);
 % head_y = data(:,3);
 % center_x1 = data(:,4);
@@ -49,8 +51,17 @@ fs = 240;
 point_Id = [1,2,3,4];
 fnum = length(data);
 fs = 240;
-save_dir = 'sham/1269/';
+save_dir = 'angle_figure/';
 if ~exist(save_dir,'dir')
     mkdir(save_dir)
 end
-[ori_data, seq_var] = extract_feature(coordi, point_Id,save_dir,fnum,fs,false);
+[ori_data, seq_var] = extract_feature(coordi, point_Id,save_dir,fnum,fs,true);
+
+disp('ori_data:');
+disp(ori_data);
+
+
+disp('seq_var:');
+disp(seq_var);
+% 1234 1223 2334 12 34 1 4 
+% 1 12 34 | 1 12 23 | 1 23 34 | 2 12 | 2 34 | 3 1 | 3 4 | 1 12 24 | 4

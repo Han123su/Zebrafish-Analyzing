@@ -1,17 +1,18 @@
 % 2D平面軌跡繪製 
 %------------------------------ 輸入檔案為YOLO的MOT.txt讀取格式。--------------------------------
 % -----------------------------------Paper論文主要使用這個--------------------------------------
-data = importdata('otherpaper/yolov5_other_papers1.txt');
+data = importdata('other_papers1.txt');
+% data = importdata('IMG_2820_Sham_1.txt');
 
-% yolov5
-data(:,3) = data(:,3) + double(data(:,5)/2);
-data(:,4) = data(:,4) + double(data(:,6)/2);
-labels = data(:,2);
+% % yolov5
+% data(:,3) = data(:,3) + double(data(:,5)/2);
+% data(:,4) = data(:,4) + double(data(:,6)/2);
+% labels = data(:,2);
 
 % yolov7 
-% data(:,4) = data(:,4) + double(data(:,6)/2);
-% data(:,5) = data(:,5) + double(data(:,7)/2);
-% labels = data(:,3);
+data(:,4) = data(:,4) + double(data(:,6)/2);
+data(:,5) = data(:,5) + double(data(:,7)/2);
+labels = data(:,3);
 
 idx =1;
 for label=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
@@ -65,7 +66,8 @@ zlabel("Time(s)","FontWeight","bold","FontName","Times New Roman")
 
 %% 3D平面軌跡繪製
 % 輸入檔案為YOLO的單隻魚的.txt讀取格式(頭部)。
-data = importdata('sham/IMG_1832-sham_n1_1.txt');
+% data = importdata('sham/IMG_1832-sham_n1_1.txt');
+data = importdata('.\data\20240703_pomgnt1_heterogeneous\IMG_5388~video\labels\IMG_5388~video_1.txt');
 % head_x = data(:,2);
 % head_y = data(:,3);
 % center_x1 = data(:,4);
@@ -93,10 +95,31 @@ set(gca, 'GridLineStyle', '--');
 set(gca, 'FontSize', 16)
 newcolors = {'#000','#F00','#F80','#FF0','#0B0','#00F','#50F','#A0F'};
 colororder(newcolors)
-% xlabel("X","FontWeight","bold","FontName","Times New Roman")
-% ylabel("Y","FontWeight","bold","FontName","Times New Roman")
-% zlabel("Time(s)","FontWeight","bold","FontName","Times New Roman")
+
+xlabel("X","FontWeight","bold","FontName","Times New Roman")
+ylabel("Y","FontWeight","bold","FontName","Times New Roman")
+zlabel("Time(s)","FontWeight","bold","FontName","Times New Roman")
+title('3D Trajectory');
+
 view(-37.5,20);
 
+%% 2D平面軌跡繪製(自行加的)
+x = coordi{1,1}(:,1);
+y = coordi{1,1}(:,2);
+
+figure;
+plot(x, y, '-', 'LineWidth', 1.5);
+grid on;
+set(gca, 'GridLineStyle', '--');
+set(gca, 'FontSize', 16);
+
+newcolors = {'#000','#F00','#F80','#FF0','#0B0','#00F','#50F','#A0F'};
+colororder(newcolors);
+
+xlabel('X', 'FontWeight', 'bold', 'FontName', 'Times New Roman');
+ylabel('Y', 'FontWeight', 'bold', 'FontName', 'Times New Roman');
+title('2D Trajectory');
+
+view(0, 90); % 將視角設置為上方視圖
 
 

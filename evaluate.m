@@ -5,34 +5,52 @@ clc;
 % ------Config------
 m =4; tau=1;scales=20;
 
-for i=1:length(seq_var)
-    disp("標記點"+string(seq_var{i}(1)));
-    kk = cell2mat(seq_var{i}(2));
+%% 夾角 Approximate entropy
+for i=1:length(ori_data)
+    disp("標記點"+string(ori_data{i}(1)));
+    kk = cell2mat(ori_data{i}(2));
     kk = (kk-min(kk))./(max(kk)-min(kk));
     [ap, ~] = ApEn(kk, m=m, tau=tau);
-    disp("approximate entropy: ");
-    disp(ap(3:end));
+    disp("夾角ApEn: ")
+    disp([ap(3); ap(4);ap(5)]);
     %   kk = (kk-min(kk(331:end-330)))./(max(kk(331:end-330))-min(kk(331:end-330)));
     %   [~, ~] = MSEn_(kk(331:end-330), Mobj, string(ori_data{i}(1)),Scales=scales,Plotx=true);
     % name = ['figure/1006/m' int2str(j) '/夾角/' int2str(i) '_MSEn.png'];
     % saveas(gcf,name)
 end
+
+%% 夾角差 Approximate entropy
+for i=1:length(seq_var)
+    disp("標記點"+string(seq_var{i}(1)));
+    kk = cell2mat(seq_var{i}(2));
+    kk = (kk-min(kk))./(max(kk)-min(kk));
+    [ap, ~] = ApEn(kk, m=m, tau=tau);
+    disp("夾角差ApEn: ");
+    disp([ap(3); ap(4);ap(5)]);
+    %   kk = (kk-min(kk(331:end-330)))./(max(kk(331:end-330))-min(kk(331:end-330)));
+    %   [~, ~] = MSEn_(kk(331:end-330), Mobj, string(ori_data{i}(1)),Scales=scales,Plotx=true);
+    % name = ['figure/1006/m' int2str(j) '/夾角/' int2str(i) '_MSEn.png'];
+    % saveas(gcf,name)
+end
+
+%% 其他特徵 Approximate entropy
 kk = curve_rate;
 kk = (kk-min(kk))./(max(kk)-min(kk));
 [ap, ~] = ApEn(kk, m=m, tau=tau);
 disp("curve approximate entropy: ");
-disp(ap(3:end));
+disp([ap(3); ap(4);ap(5)]);
 kk = contour_AUC;
 kk = (kk-min(kk))./(max(kk)-min(kk));
 [ap, ~] = ApEn(kk, m=m, tau=tau);
 disp("contour approximate entropy: ");
 
-disp(ap(3:end));
+disp([ap(3); ap(4);ap(5)]);
 kk = sum_AUC;
 kk = (kk-min(kk))./(max(kk)-min(kk));
 [ap, ~] = ApEn(kk, m=m, tau=tau);
 disp("AUC approximate entropy: ");
-disp(ap(3:end));
+disp([ap(3); ap(4);ap(5)]);
+
 %%
 % ------Config------
 m =4; tau=1;scales=20;
@@ -40,7 +58,7 @@ Mobj = MSobject('ApEn', 'm', m, 'tau', tau);
 Feature= struct('f1', [], 'f2', [], 'f3', [], 'f4', [], 'f5', [], ...
     'f6', [], 'f7', [], 'f8', [], 'f9', []);
 
-%%
+%%  MSEn 
 list_h = ["0621","0622","9853","9854","9857"];
 list_m = ["0767","0779","0787","0788","0838","0999","1006","1286","1287","1288","1290","1291"];
 list_s = ["1269","1270","1271","1272","1275"];
@@ -50,7 +68,7 @@ for i=list_h
     for j=9
         kk = cell2mat(ori_data{j}(2));
         % kk = (kk-min(kk))./(max(kk)-min(kk));
-        kk = (kk-min(kk(331:end-330)))./(max(kk(331:end-330))-min(kk(331:end-330)));
+        kk = (kk-min(kk(331:end-330)))./(max(kk(331:end-330))-min(kk(331:end-330)));  
         [value, ~] = MSEn_(kk(331:end-330), Mobj, string(ori_data{j}(1)),Scales=scales,Plotx=true);
         disp(value);
         if j==3
